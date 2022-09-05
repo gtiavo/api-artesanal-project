@@ -19,6 +19,10 @@ const ProductSchema = new Schema({
     deletedAt: {
         type: Boolean,
         default: false
+    },
+    source:{
+        type: String,
+
     }
 });
 
