@@ -35,6 +35,20 @@ const Mongoose = {
       const updatedData = await db.updateOne(dataId, data);
       return updatedData;
 
+     },
+
+     insertAll: async(db, data) => {
+
+      const newsPost = await db.insertMany(data);
+      return newsPost;
+
+     },
+
+     deleteAll: async(db) => {
+
+      const deleteData = await db.deleteMany();
+      return deleteData;
+
      }
 
 }
