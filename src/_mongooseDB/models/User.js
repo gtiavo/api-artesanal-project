@@ -22,7 +22,7 @@ const UserSchema = Schema({
         type: String
     } ,
     roleId:{
-        type: String
+        type: Number
     },
     isActive: {
         type:Boolean,

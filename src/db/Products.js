@@ -8,9 +8,9 @@ const { NotFoundResponse } = require('../_HTTP-response/errors');
 const productCreate = async( data ) => {
 
    data.name = data.name.toLowerCase();
-   const { name , style, description, photo, source } = data;
+   const { name , style, maker, description, photo, source } = data;
 
-   const product = await ModelsDB.NewPost( Product, { name, style, description, photo, source } );
+   const product = await ModelsDB.NewPost( Product, { name, style, maker, description, photo, source } );
    await product.save();
 
    return product;
@@ -41,10 +41,10 @@ const oneProduct = async( data ) => {
 
 const productEdit = async(dataId, data) => {
 
-   const { name, style, description, photo, source } = data;
+   const { name, style, maker, description, photo, source } = data;
 
    const product = await oneProduct(dataId);
-   await ModelsDB.updatePost(product, { name, style, description, photo, source } );
+   await ModelsDB.updatePost(product, { name, style, maker, description, photo, source } );
    
    return;
 };

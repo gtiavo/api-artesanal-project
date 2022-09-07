@@ -10,6 +10,9 @@ const ProductSchema = new Schema({
     style:{
         type: String
     },
+    maker:{
+        type: String
+    },
     description:{
         type: String
     },

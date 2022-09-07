@@ -1,4 +1,5 @@
 const dataUsers = require('./data-users');
+const dataProducts = require('./data-prdoucts');
 
 
 
@@ -6,4 +7,5 @@ const dataUsers = require('./data-users');
 
 module.exports = {
     dataUsers,
+    dataProducts
 }
