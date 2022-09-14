@@ -1,0 +1,17 @@
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-token
+  parameters:
+    parametersId:
+      in: path
+      name: id
+      required: true
+      schema:
+        type: string
+      description: the id or name required
+
+security:
+ - ApiKeyAuth: []

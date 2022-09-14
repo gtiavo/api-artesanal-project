@@ -1,0 +1,155 @@
+tags:
+  - name: auth
+    description: Everything about your auth
+
+components:
+  schemas:
+    Auth-Login:
+      type: object
+      properties:
+        email:
+          type: string
+          description: the email of a user.
+        password:
+          type: string
+          decription: the password of a user.
+      reqired:
+        - email
+        - password
+      example:
+        email: testone@google.com
+        password: 123456abcde
+    Auth-Register:
+      type: object
+      properties:
+        firstName:
+          type: string
+          description: the firstName of a user.
+        lastName:
+          type: string
+          description: the lastName of a user.
+        email:
+          type: string
+          description: the email of a user.
+        password:
+          type: string
+          description: the password of a user.
+        photo:
+          type: string
+          description: the photo of a user.
+      required:
+        - firstName
+        - lastName
+        - email
+        - password
+      example:
+        firstName: Test
+        lastName: One
+        email: testone@google.com
+        password: 123456abcde
+        photo: img/image.jpg
+    
+
+paths:
+  /auth/register:
+    post:
+      summary: Create a new user.
+      tags:
+        - auth
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#components/schemas/Auth-Register'
+      responses:
+        201:
+          description: The user was successfully created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreatedResponse' 
+              example:
+                error: false
+                name: Created
+                status: 201
+                message: User created
+                data: 
+                  firstName: Test
+                  lastName: One
+                  email: testone@google.com
+                  photo: img/image.jpg
+        400:
+          description: Invalid operation to create a new user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFields' 
+              examples:
+                NotFields:
+                  $ref: '#/components/examples/NotFields'
+        500:
+          description: Unkwnwn Error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServerError'
+
+  /auth/login:
+    post:
+      summary: User loged.
+      tags:
+        - auth
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Auth-Login'
+      responses:
+        200:
+          description: The user logged.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OkResponse'
+              example:
+                error: false
+                name: OK
+                status: 200
+                message: 0k
+                data:
+                  user:
+                    firstName: Test
+                    lastName: One
+                    email: testone@google.com
+                    photo: img/image.jpg
+                  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2MzFiYzFjYmZhYmRjYzdiZmUxZWJmMGMiLCJpYXQiOjE2NjI4NDUxOTksImV4cCI6MTY2Mjg1OTU5OX0.RhcowYnuxq2yGw9N9-LSrS7sK6gFG0_pxYgavb0DRu0
+        400:
+          description: Invalid operation to loged.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFields'
+              examples:
+                NotFields:
+                  $ref: '#/components/examples/NotFields'     
+        401:
+          description: Invalid operation to loged.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Unauthorized'
+              example:
+                error: true
+                name: Unauthorized
+                status: 401
+                message: invalid email or password
+                data: []
+        500:
+          description: Unkwnwn Error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServerError'
+

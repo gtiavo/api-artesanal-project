@@ -9,6 +9,7 @@ const middlewareError = ( error, req, res, next ) => {
         errorObject = new BadRequestResponse(`${ JSON.stringify( error.keyValue ) }, ya existe en DB`).toJson();
     } else {
         errorObject = {
+            error: true,
             name: 'UnkwnwnError',
             status: 500,
             message: 'Unkwnwn Error ' + error.message,

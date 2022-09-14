@@ -1,0 +1,324 @@
+tags:
+  - name: products
+    description: Everthing about your products
+components:
+  schemas:
+    Products:
+      type: object
+      properties:
+        name:
+          type: string
+          description: the name of the product
+        style:
+          type: string
+          description: the style of the product
+        marker:
+          type: string
+          description: the marker of the product
+        description:
+          type: string
+          description: the description of the product
+        photo:
+          type: string
+          description: the photo of the product
+        deletedAt:
+          type: boolean
+          description: the deletedAt of the product
+        source: 
+          type: string
+          description: the source of the product
+      required:
+        - name
+      example:
+        name: Cerveza Artezanal
+        style: IPA
+        marker: Productora nacional
+        description: Cerveza artezanal nacional con exquisitos aromas al suelo de mi pueblo
+        photo: img/imagen.jpg
+        source: Argentina 
+  
+
+paths:
+  /products: 
+    post:
+      security:
+        - ApiKeyAuth: []
+      summary: Create a new product.
+      tags:
+        - products 
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: 
+              $ref: '#/components/schemas/Products'
+      responses:
+        201:
+          description: the product was successfully created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreatedResponse' 
+              example:
+                error: false
+                name: Created
+                status: 201
+                message: The product was created successfully.
+                data:
+                  product: 
+                    name: Cerveza Artezanal
+                    style: IPA
+                    marker: Productora nacional
+                    description: Cerveza artezanal nacional con exquisitos aromas al suelo de mi pueblo
+                    photo: img/imagen.jpg
+                    source: Argentina 
+                    id: 631921fe88f21961f25570b7
+        400:
+          description: Invalid operation to create a new product.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/BadRequest'
+                  - $ref: '#/components/schemas/NotFields' 
+              examples:
+                InvalidToken:
+                  $ref: '#/components/examples/InvalidToken'
+                NotFields:
+                  $ref: '#/components/examples/NotFields'
+        500:
+          description: Unkwnwn Error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServerError'
+
+    get:
+      summary: Get All products
+      tags:
+        - products 
+      responses:
+        200:
+          description: A JSON array of products.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OkResponse'
+              example:
+                error: false
+                name: OK
+                status: 200
+                message: 0k
+                data: 
+                  products:
+                    - name: Cerveza Artezanal
+                      style: IPA
+                      marker: Productora nacional
+                      description: Cerveza artezanal nacional con exquisitos aromas al suelo de mi pueblo
+                      photo: img/imagen.jpg
+                      source: Argentina 
+                      id: 631921fe88f21961f25570b7
+                    - name: Cerveza Artezanal 2
+                      style: IPA
+                      marker: Productora nacional
+                      description: Cerveza artezanal nacional con exquisitos aromas al suelo de mi pueblo
+                      photo: img/imagen.jpg
+                      source: Argentina 
+                      id: 631921fe88f21961f25570b8     
+        500:
+          description: Unkwnwn Error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServerError'
+
+  /products/{id}:
+    get:
+      summary: Get One product
+      tags:
+        - products
+      parameters:
+        - $ref: '#/components/parameters/parametersId'
+      responses:
+        200:
+          description: La solicitud se ah completado correctamente
+          content:
+            application/json: 
+              schema:
+                $ref: '#/components/schemas/OkResponse'
+              example:
+                error: false
+                name: OK
+                status: 200
+                message: 0k
+                data:
+                  product: 
+                    name: Cerveza Artezanal
+                    style: IPA
+                    marker: Productora nacional
+                    description: Cerveza artezanal nacional con exquisitos aromas al suelo de mi pueblo
+                    photo: img/imagen.jpg
+                    source: Argentina 
+                    id: 631921fe88f21961f25570b7
+        404:
+          description: Not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFound'
+              example:
+                error: true
+                name: NotFound
+                status: 404
+                message: product not found.
+                data: []
+        500:
+          description: Unkwnwn Error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServerError'
+
+    put: 
+      security: 
+        - ApiKeyAuth: []
+      summary: Update product
+      tags:
+        - products
+      parameters:
+        - $ref: '#/components/parameters/parametersId'
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Products'
+      responses:
+        200:
+          description: updated product.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OkResponse'
+              example:
+                error: false
+                name: OK
+                status: 200
+                message: The product was successfully updated
+                data: []
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/BadRequest'
+                  - $ref: '#/components/schemas/NotFields'
+              examples:
+                InvalidToken:
+                  $ref: '#/components/examples/InvalidToken'
+                NotFields:
+                  $ref: '#/components/examples/NotFields'
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Unauthorized'
+              examples:
+                authenticationToken:
+                  $ref: '#/components/examples/authenticationToken'
+        403:
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Forbidden'
+              examples:
+                accessDenied:
+                  $ref: '#/components/examples/accessDenied'
+        404:
+          description: Not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFound'
+              example:
+                error: true
+                name: NotFound
+                status: 404
+                message: product not found.
+                data: []
+        500:
+          description: Unkwnwn Error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServerError'
+
+    delete:
+      security:
+        - ApiKeyAuth: []
+      summary: Delete product.
+      tags:
+        - products
+      parameters:
+        - $ref: '#/components/parameters/parametersId'
+      responses:
+        200:
+          description: Deleted product.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OkResponse'
+              example:
+                error: false
+                name: OK
+                status: 200
+                message: The product was removed successfully.
+                data: []
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequest'
+              examples:
+                InvalidToken:
+                  $ref: '#/components/examples/InvalidToken'
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Unauthorized'
+              examples:
+                authenticationToken:
+                  $ref: '#/components/examples/authenticationToken'
+        403:
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Forbidden'
+              examples:
+                accessDenied:
+                  $ref: '#/components/examples/accessDenied'
+        404:
+          description: Not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFound'
+              example:
+                error: true
+                name: NotFound
+                status: 404
+                message: product not found.
+                data: []
+        500:
+          description: Unkwnwn Error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServerError'  

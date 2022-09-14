@@ -1,0 +1,171 @@
+components:
+  schemas:
+    BadRequest:
+      type: object
+      properties:
+        error: 
+          type: boolean
+          description: true
+        name:
+          type: string
+          description: BadRequest
+        status:
+          type: integer
+          description: 400
+        message:
+          type: string
+          description: The server cannot or will not process the request due to something that is perceived to be a client error
+        data:
+          type: array
+      example:
+        error: true
+        name: BadRequest
+        status: 400
+        message: The server cannot or will not process the request due to something that is perceived to be a client error
+        data: []
+
+    ServerError:
+      type: object
+      properties:
+        error: 
+          type: boolean
+          description: true
+        name:
+          type: string
+          description: UnkwnwnError
+        status:
+          type: integer
+          description: 500
+        message:
+          type: string
+          description: Unkwnwn Error 
+      example:
+        error: true
+        name: UnkwnwnError
+        status: 500
+        message: Unkwnwn Error
+
+    Unauthorized:
+      type: object
+      properties:
+        error: 
+          type: boolean
+          description: true
+        name:
+          type: string
+          description: Unauthorized
+        status:
+          type: integer
+          description: 401
+        message:
+          type: string
+          description: Although the HTTP standard specifies "unauthorized", semantically this response means "unauthenticated"
+        data:
+          type: array
+      example:
+        error: true
+        name: Unauthorized
+        status: 401
+        message: Although the HTTP standard specifies "unauthorized", semantically this response means "unauthenticated"
+        data: []
+
+    NotFound:
+      type: object
+      properties:
+        error: 
+          type: boolean
+          description: true
+        name:
+          type: string
+          description: NotFound
+        status:
+          type: integer
+          description: 404
+        message:
+          type: string
+          description: The server can not find the requested resource. In the browser, this means the URL is not recognized
+        data:
+          type: array
+      example:
+        error: true
+        name: NotFound
+        status: 404
+        message: The server can not find the requested resource. In the browser, this means the URL is not recognized
+        data: []
+
+    Forbidden:
+      type: object
+      properties:
+        error: 
+          type: boolean
+          description: true
+        name:
+          type: string
+          description: Forbidden
+        status:
+          type: integer
+          description: 403
+        message:
+          type: string
+          description: The client does not have access rights to the content
+        data:
+          type: array
+      example:
+        error: true
+        name: Forbidden
+        status: 403
+        message: The client does not have access rights to the content
+        data: []
+    
+    NotFields:
+      type: object
+      properties:
+        value:
+          type: string
+        msg:
+          type: string
+          description: Some fields are required.
+        param: 
+          type: string
+          description: name
+        location: 
+          type: string
+          description: body
+      
+  
+  examples:
+    InvalidToken:
+      value:
+        error: true
+        name: BadRequest
+        status: 400
+        message: Invalid Token.
+        data: []
+
+    authenticationToken:
+      value:
+        error: true
+        name: Unauthorized
+        status: 400
+        message: The authentication token has not been sent.
+        data: []
+    
+    accessDenied:
+      value:
+        error: true
+        name: Forbidden
+        status: 403
+        message: The client does not have access rights to the content
+        data: []
+    
+    NotFields:
+      value:
+        errors:
+          - value: string
+            msg: string
+            param: param 1
+            location: body
+          - value: string
+            msg: string
+            param: param 2
+            location: body

@@ -1,11 +1,11 @@
 const { Router } = require('express');
 const  router    = Router();
-const  userPath = require('./users');
+const  authPath = require('./auth');
 const  productPath = require('./products');
 const  seedPath = require('./seed');
 
 
-router.use('/auth', userPath );
+router.use('/auth', authPath );
 router.use('/products', productPath );
 router.use('/seed', seedPath );
 

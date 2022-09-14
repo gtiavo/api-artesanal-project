@@ -6,7 +6,7 @@ const { CreatedResponse, OkResponse } = require("../_HTTP-response/successful");
 const newProduct = asyncHandler(async(req, res, next) => {
 
    const product = await productCreate(req.body);
-   new CreatedResponse(res, product, `El producto ${ product.name } se creo con exito`);
+   new CreatedResponse(res, product, `The product was created successfully`);
     
 });
 
@@ -27,13 +27,13 @@ const getOneProduct = asyncHandler(async(req,res,next) => {
 const updateProduct = asyncHandler(async(req, res, next ) => {
     
     await productEdit(req.params, req.body);
-    new OkResponse(res, [], 'El producto se actualizo con exito');
+    new OkResponse(res, [], 'The product was successfully updated');
 
 });
 
 const deleteProduct = asyncHandler(async(req,res,next) => {
     await removeProduct(req.params);
-    new OkResponse(res, [], 'El producto se elimino con exito');
+    new OkResponse(res, [], 'The product was removed successfully.');
 
 });
 

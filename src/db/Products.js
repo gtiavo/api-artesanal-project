@@ -33,7 +33,7 @@ const oneProduct = async( data ) => {
 
     if( !product ) product = await ModelsDB.getOne(Product, {name: id.toLowerCase().trim() });
     
-    if( !product || product.deletedAt ) throw new NotFoundResponse('No se encontro el producto solicitado');
+    if( !product || product.deletedAt ) throw new NotFoundResponse('product not found');
     
     return product;
 

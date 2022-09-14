@@ -7,7 +7,7 @@ const validarJWT = (req, res, next) => {
   if (!token) throw new UnauthorizedResponse( "No se ah enviado el token de autenticación" );
  
   jwt.verify(token, process.env.SECRETORPRIVATEKEY, async (error, user) => {
-      if (error) return res.status(400).send({ message: "Token invalido" });
+      if (error) return res.status(400).send({ error: true, name: 'BadRequest', status: 400, message: "Token invalido", data: [] });
       req.user = user;
       next();
   });

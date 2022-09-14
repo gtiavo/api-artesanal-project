@@ -1,7 +1,10 @@
-const express = require('express');
-const cors    = require('cors');
-const morgan  = require('morgan');
+const express   = require('express');
+const cors      = require('cors');
+const morgan    = require('morgan');
 const dbMongose = require('../_mongooseDB/config/configDb');
+const options   = require('../docs/swaggerOptions');
+const swaggerUi = require('swagger-ui-express');
+const swaggerJsdoc        =  require ( 'swagger-jsdoc' ) ;
 const { middlewareError } = require('../middlewares');
 
 class Server {
@@ -9,7 +12,6 @@ class Server {
     this.app = express();
     this.port = process.env.PORT;
 
-    //path de las rutas
     this.path = "/api";
 
     this.dbConection();
@@ -17,37 +19,34 @@ class Server {
     this.routes();
   }
 
-  //DataBase
+  
   dbConection() {
     dbMongose();
   }
 
-  //middleware
+  
   middleware() {
-    //CORS
+   
     this.app.use(cors());
 
-    //morgan
     this.app.use( morgan('tiny'));
 
-    //json
     this.app.use(express.json());
 
-    //static
     this.app.use(express.static("src/public"));
+
+    this.app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerJsdoc(options)));
+
   }
 
-  //Rutas
   routes() {
     this.app.use(this.path, require("../routes"));
   }
 
-  //Errors
   errors() {
   this.app.use( middlewareError )
   }
 
-  //Escuchando puerto
   get listen() {
     this.app.listen(this.port, () => {
       console.log(`El servido esta corriendo en el puerto: ${this.port} XD`);
