@@ -1,4 +1,4 @@
-const { newUser, userLoged } = require("../db");
+const { newUser, userLoged, getUsers, oneUser, userEdit, removeUser, restoreUser, banned, unBanned } = require("../db");
 const asyncHandler = require("../helpers/async-handler");
 const {  CreatedResponse, OkResponse } = require("../_HTTP-response/successful");
 
@@ -7,7 +7,7 @@ const {  CreatedResponse, OkResponse } = require("../_HTTP-response/successful")
 const register = asyncHandler(async( req , res, next  ) => {
 
     const user = await newUser( req.body );
-    user && new CreatedResponse(res, user, 'User created');
+     new CreatedResponse(res, user, 'User created');
     
 });
 
@@ -15,16 +15,70 @@ const register = asyncHandler(async( req , res, next  ) => {
 const login = asyncHandler(async( req, res, next ) => {
 
     const user = await userLoged( req.body );
-    user && new OkResponse(res, user)
+     new OkResponse(res, user);
+
+});
+
+const updateUser = asyncHandler(async( req, res, next ) => {
+
+    await userEdit(req.params, req.body);
+    new OkResponse(res, [], 'User updated');
+
+});
+
+
+const deactivateUser = asyncHandler(async( req, res, next ) => {
+
+    await removeUser(req.params);
+    new OkResponse(res, [], 'User deactivate');
+
+});
+
+const activateUser = asyncHandler(async( req, res, next ) => {
+
+    await restoreUser(req.params);
+    new OkResponse(res, [], 'User activate');
+
+});
+
+const getAllUser = asyncHandler(async( req, res, next ) => {
+
+    const users = await getUsers();
+    new OkResponse(res, {users: users});
+
+});
+
+const getOneUser = asyncHandler(async( req, res, next ) => {
+
+    const user = await oneUser( req.params );
+    new OkResponse(res, {user: user});
+
+});
+
+const bannedUser = asyncHandler(async( req, res, next ) => {
+
+    await banned(req.params);
+    new OkResponse(res, [], 'Banned User');
+
+});
+
+const unBannedUser = asyncHandler(async( req, res, next ) => {
+
+    await unBanned(req.params);
+    new OkResponse(res, [], 'Unbanned User');
 
 });
 
 
 
-
-
-
 module.exports = {
     register,
-    login
+    login,
+    updateUser,
+    deactivateUser,
+    activateUser,
+    getAllUser,
+    getOneUser,
+    bannedUser,
+    unBannedUser
 }

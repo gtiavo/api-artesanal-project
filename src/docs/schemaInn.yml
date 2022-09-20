@@ -12,6 +12,13 @@ components:
       schema:
         type: string
       description: the id or name required
+    parametersIdAuth:
+      in: path
+      name: id
+      required: true
+      schema:
+        type: string
+      description: the id required
 
 security:
  - ApiKeyAuth: []

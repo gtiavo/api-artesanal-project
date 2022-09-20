@@ -22,16 +22,26 @@ const UserSchema = Schema({
         type: String
     } ,
     roleId:{
-        type: Number
+       type: String,
+       enum: {
+        values: ['admin', 'client', 'super-user'],
+        messsage: '{VALUE} no es un role valido',
+        required: true
+       },
+       default: 'client' 
     },
     isActive: {
         type:Boolean,
         default: true
+    },
+    isBanned: {
+        type: Boolean,
+        default: false
     }
 });
 
 UserSchema.method('toJSON', function() {
-    const { __v, password,isActive, _id, ...object } =  this.toObject();
+    const { __v, password, _id, ...object } =  this.toObject();
   
     object.id = _id;
     return object;

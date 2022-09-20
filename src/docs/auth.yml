@@ -49,6 +49,7 @@ components:
         password: 123456abcde
         photo: img/image.jpg
     
+    
 
 paths:
   /auth/register:
@@ -152,4 +153,421 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ServerError'
+  
+  /auth/{id}:
+    put:
+      security: 
+        - ApiKeyAuth: []
+      summary: Update User.
+      tags:
+        - auth
+      parameters:
+        - $ref: '#/components/parameters/parametersIdAuth'
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#components/schemas/Auth-Register'
+      responses:
+        200:
+          description: updated user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OkResponse'
+              example:
+                error: false
+                name: OK
+                status: 200
+                message: The user was successfully updated
+                data: []
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                  - $ref: '#/components/schemas/BadRequest'
+              examples:
+                InvalidToken:
+                  $ref: '#/components/examples/InvalidToken'
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Unauthorized'
+              examples:
+                authenticationToken:
+                  $ref: '#/components/examples/authenticationToken'
+        403:
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Forbidden'
+              examples:
+                accessDenied:
+                  $ref: '#/components/examples/accessDenied' 
+        500:
+          description: Unkwnwn Error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServerError'    
 
+  /auth/account/{id}:
+    delete:
+      security: 
+        - ApiKeyAuth: []
+      summary: Deactivate User.
+      tags:
+        - auth
+      parameters:
+        - $ref: '#/components/parameters/parametersIdAuth'
+      responses:
+        200:
+          description: Deactivate User.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OkResponse'
+              example:
+                error: false
+                name: OK
+                status: 200
+                message: Deactivate User.
+                data: []
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                  - $ref: '#/components/schemas/BadRequest'
+              examples:
+                InvalidToken:
+                  $ref: '#/components/examples/InvalidToken'
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Unauthorized'
+              examples:
+                authenticationToken:
+                  $ref: '#/components/examples/authenticationToken'
+        403:
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Forbidden'
+              examples:
+                accessDenied:
+                  $ref: '#/components/examples/accessDenied' 
+        500:
+          description: Unkwnwn Error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServerError'
+
+    put:
+      security: 
+        - ApiKeyAuth: []
+      summary: Activate User.
+      tags:
+        - auth
+      parameters:
+        - $ref: '#/components/parameters/parametersIdAuth'
+      responses:
+        200:
+          description: Activate User.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OkResponse'
+              example:
+                error: false
+                name: OK
+                status: 200
+                message: Activate User.
+                data: []
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                  - $ref: '#/components/schemas/BadRequest'
+              examples:
+                InvalidToken:
+                  $ref: '#/components/examples/InvalidToken'
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Unauthorized'
+              examples:
+                authenticationToken:
+                  $ref: '#/components/examples/authenticationToken'
+        403:
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Forbidden'
+              examples:
+                accessDenied:
+                  $ref: '#/components/examples/accessDenied' 
+        500:
+          description: Unkwnwn Error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServerError'
+      
+
+  /auth/admin:
+    get:
+      security: 
+        - ApiKeyAuth: []
+      summary: Get All Users.
+      tags:
+        - auth
+      responses:
+        200:
+          description: A JSON array of users.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OkResponse'
+              example:
+                error: false
+                name: OK
+                status: 200
+                message: 0k
+                data:
+                  - id: 631921fe88f21961f25570b7
+                    firstName: Test
+                    lastName: One
+                    email: testone@google.com
+                    photo: img/image.jpg
+                    isAtive: true
+                    isBanned: false
+                  - id: 631921fe88f21961f25570b9
+                    firstName: Test
+                    lastName: Two
+                    email: testtwo@google.com
+                    photo: img/image.jpg
+                    isAtive: true
+                    isBanned: false
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                  - $ref: '#/components/schemas/BadRequest'
+              examples:
+                InvalidToken:
+                  $ref: '#/components/examples/InvalidToken'
+              
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Unauthorized'
+              examples:
+                authenticationToken:
+                  $ref: '#/components/examples/authenticationToken'
+        403:
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Forbidden'
+              examples:
+                accessDenied:
+                  $ref: '#/components/examples/accessDenied' 
+        500:
+          description: Unkwnwn Error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServerError'
+
+  /auth/admin/{id}:
+    get:
+      security: 
+        - ApiKeyAuth: []
+      summary: Get One User.
+      tags:
+        - auth
+      parameters:
+        - $ref: '#/components/parameters/parametersIdAuth'
+      responses:
+        200:
+          description: A JSON object of user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OkResponse'
+              example:
+                error: false
+                name: OK
+                status: 200
+                message: 0k
+                data:
+                  id: 631921fe88f21961f25570b7
+                  firstName: Test
+                  lastName: One
+                  email: testone@google.com
+                  photo: img/image.jpg
+                  isAtive: true
+                  isBanned: false
+                  
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                  - $ref: '#/components/schemas/BadRequest'
+              examples:
+                InvalidToken:
+                  $ref: '#/components/examples/InvalidToken'
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Unauthorized'
+              examples:
+                authenticationToken:
+                  $ref: '#/components/examples/authenticationToken'
+        403:
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Forbidden'
+              examples:
+                accessDenied:
+                  $ref: '#/components/examples/accessDenied' 
+        500:
+          description: Unkwnwn Error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServerError'
+
+    delete:
+      security: 
+        - ApiKeyAuth: []
+      summary: Banned User.
+      tags:
+        - auth
+      parameters:
+        - $ref: '#/components/parameters/parametersIdAuth'
+      responses:
+        200:
+          description: Banned User.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OkResponse'
+              example:
+                error: false
+                name: OK
+                status: 200
+                message: Banned User.
+                data: []
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                  - $ref: '#/components/schemas/BadRequest'
+              examples:
+                InvalidToken:
+                  $ref: '#/components/examples/InvalidToken'
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Unauthorized'
+              examples:
+                authenticationToken:
+                  $ref: '#/components/examples/authenticationToken'
+        403:
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Forbidden'
+              examples:
+                accessDenied:
+                  $ref: '#/components/examples/accessDenied' 
+        500:
+          description: Unkwnwn Error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServerError'
+
+    put:
+      security: 
+        - ApiKeyAuth: []
+      summary: Unbanned User.
+      tags:
+        - auth
+      parameters:
+        - $ref: '#/components/parameters/parametersIdAuth'
+      responses:
+        200:
+          description: Unbanned User.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OkResponse'
+              example:
+                error: false
+                name: OK
+                status: 200
+                message: Unbanned User.
+                data: []
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                  - $ref: '#/components/schemas/BadRequest'
+              examples:
+                InvalidToken:
+                  $ref: '#/components/examples/InvalidToken'
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Unauthorized'
+              examples:
+                authenticationToken:
+                  $ref: '#/components/examples/authenticationToken'
+        403:
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Forbidden'
+              examples:
+                accessDenied:
+                  $ref: '#/components/examples/accessDenied' 
+        500:
+          description: Unkwnwn Error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServerError'
+    

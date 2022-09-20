@@ -3,20 +3,20 @@ const {hashSync} = require('bcryptjs');
 const users = [
     {
     
-    firstName: "Test",
+    firstName: "Admin",
     lastName: "One",
-    email: "testone@google.com",
+    email: "adminone@google.com",
     password: hashSync('123456', 10),
-    roleId: 1
+    roleId: 'admin'
 
 },
 {
     
-    firstName: "Test",
-    lastName: "Two",
-    email: "testtwo@google.com",
+    firstName: "Client",
+    lastName: "Client",
+    email: "client@google.com",
     password: hashSync('123456', 10),
-    roleId: 2
+    roleId: 'client'
 
 },
 ]
