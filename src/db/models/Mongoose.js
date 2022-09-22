@@ -49,6 +49,13 @@ const Mongoose = {
       const deleteData = await db.deleteMany();
       return deleteData;
 
+     },
+
+     delete: async(db, dataId ) => {
+
+      const deleteData = await db.deleteOne({_id:dataId});
+      return deleteData;
+
      }
 
 }

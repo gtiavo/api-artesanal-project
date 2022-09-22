@@ -41,6 +41,7 @@ const oneProduct = async( data ) => {
 
 const productEdit = async(dataId, data) => {
 
+   data.name = data.name.toLowerCase();
    const { name, style, maker, description, photo, source } = data;
 
    const product = await oneProduct(dataId);
