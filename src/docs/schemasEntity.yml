@@ -1,0 +1,100 @@
+components:
+  schemas:
+    Styles:
+      type: object
+      properties:
+        name:
+          type: string
+          description: the name of the style
+        description:
+          type: string
+          description: the description of the styles.
+        photo: 
+          type: string
+          description: the photo of the styles.
+      required:
+        -name
+      example:
+        name: ipa
+        description: Indian Pale Ale
+        photo: img/imagen.jpg
+
+    Products:
+        type: object
+        properties:
+          name:
+            type: string
+            description: the name of the product
+          style:
+            type: string
+            description: the style of the product
+          marker:
+            type: string
+            description: the marker of the product
+          description:
+            type: string
+            description: the description of the product
+          photo:
+            type: string
+            description: the photo of the product
+          deletedAt:
+            type: boolean
+            description: the deletedAt of the product
+          source: 
+            type: string
+            description: the source of the product
+        required:
+          - name
+        example:
+          name: Cerveza Artezanal
+          style: IPA
+          marker: Productora nacional
+          description: Cerveza artezanal nacional con exquisitos aromas al suelo de mi pueblo
+          photo: img/imagen.jpg
+          source: Argentina 
+
+    Auth-Login:
+      type: object
+      properties:
+        email:
+          type: string
+          description: the email of a user.
+        password:
+          type: string
+          decription: the password of a user.
+      reqired:
+        - email
+        - password
+      example:
+        email: testone@google.com
+        password: 123456abcde
+        
+    Auth-Register:
+      type: object
+      properties:
+        firstName:
+          type: string
+          description: the firstName of a user.
+        lastName:
+          type: string
+          description: the lastName of a user.
+        email:
+          type: string
+          description: the email of a user.
+        password:
+          type: string
+          description: the password of a user.
+        photo:
+          type: string
+          description: the photo of a user.
+      required:
+        - firstName
+        - lastName
+        - email
+        - password
+      example:
+        firstName: Test
+        lastName: One
+        email: testone@google.com
+        password: 123456abcde
+        photo: img/image.jpg

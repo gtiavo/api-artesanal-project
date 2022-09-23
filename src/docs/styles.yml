@@ -1,24 +1,24 @@
 tags:
-  - name: products
-    description: Everthing about your products
-
+  - name: styles
+    description: Everthing about your styles.
+  
 paths:
-  /products: 
+  /styles:
     post:
       security:
         - ApiKeyAuth: []
-      summary: Create a new product.
+      summary: Create a new Style.
       tags:
-        - products 
+        - styles
       requestBody:
         required: true
         content:
           application/json:
-            schema: 
-              $ref: '#/components/schemas/Products'
+            schema:
+              $ref: '#/components/schemas/Styles'
       responses:
         201:
-          description: the product was successfully created.
+          description: the style was successfully created.
           content:
             application/json:
               schema:
@@ -27,18 +27,14 @@ paths:
                 error: false
                 name: Created
                 status: 201
-                message: The product was created successfully.
+                message: The style was created successfully.
                 data:
-                  product: 
-                    name: Cerveza Artezanal
-                    style: IPA
-                    marker: Productora nacional
-                    description: Cerveza artezanal nacional con exquisitos aromas al suelo de mi pueblo
+                  style:
+                    name: ipa
+                    description: Indian Pale Ale
                     photo: img/imagen.jpg
-                    source: Argentina 
-                    id: 631921fe88f21961f25570b7
         400:
-          description: Invalid operation to create a new product.
+          description: Invalid operation to create a new style.
           content:
             application/json:
               schema:
@@ -80,7 +76,7 @@ paths:
                 error: true
                 name: NotFound
                 status: 404
-                message: product not found.
+                message: style not found.
                 data: []
         500:
           description: Unkwnwn Error.
@@ -88,14 +84,14 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ServerError'
-
+      
     get:
-      summary: Get All products
+      summary: Get All styles.
       tags:
-        - products 
+        - styles
       responses:
         200:
-          description: A JSON array of products.
+          description: A JSON array of styles.
           content:
             application/json:
               schema:
@@ -106,20 +102,14 @@ paths:
                 status: 200
                 message: 0k
                 data: 
-                  products:
-                    - name: Cerveza Artezanal
-                      style: IPA
-                      marker: Productora nacional
-                      description: Cerveza artezanal nacional con exquisitos aromas al suelo de mi pueblo
+                  styles:
+                    - name: ipa
+                      description: Indian Pale Ale
                       photo: img/imagen.jpg
-                      source: Argentina 
                       id: 631921fe88f21961f25570b7
-                    - name: Cerveza Artezanal 2
-                      style: IPA
-                      marker: Productora nacional
-                      description: Cerveza artezanal nacional con exquisitos aromas al suelo de mi pueblo
+                    - name: apa
+                      description: American Pale Ale
                       photo: img/imagen.jpg
-                      source: Argentina 
                       id: 631921fe88f21961f25570b8     
         500:
           description: Unkwnwn Error.
@@ -128,11 +118,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/ServerError'
 
-  /products/{id}:
+  /styles/{id}:
     get:
-      summary: Get One product
+      summary: Get One style.
       tags:
-        - products
+        - styles
       parameters:
         - $ref: '#/components/parameters/parametersId'
       responses:
@@ -148,14 +138,11 @@ paths:
                 status: 200
                 message: 0k
                 data:
-                  product: 
-                    name: Cerveza Artezanal
-                    style: IPA
-                    marker: Productora nacional
-                    description: Cerveza artezanal nacional con exquisitos aromas al suelo de mi pueblo
-                    photo: img/imagen.jpg
-                    source: Argentina 
-                    id: 631921fe88f21961f25570b7
+                  style: 
+                      name: ipa
+                      description: Indian Pale Ale
+                      photo: img/imagen.jpg
+                      id: 631921fe88f21961f25570b7
         404:
           description: Not found.
           content:
@@ -166,7 +153,7 @@ paths:
                 error: true
                 name: NotFound
                 status: 404
-                message: product not found.
+                message: style not found.
                 data: []
         500:
           description: Unkwnwn Error.
@@ -175,12 +162,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ServerError'
 
-    put: 
-      security: 
+    put:  
+      security:
         - ApiKeyAuth: []
-      summary: Update product
+      summary: Update style
       tags:
-        - products
+        - styles
       parameters:
         - $ref: '#/components/parameters/parametersId'
       requestBody:
@@ -188,10 +175,10 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Products'
+              $ref: '#/components/schemas/Styles'
       responses:
         200:
-          description: updated product.
+          description: updated style.
           content:
             application/json:
               schema:
@@ -200,7 +187,7 @@ paths:
                 error: false
                 name: OK
                 status: 200
-                message: The product was successfully updated
+                message: The style was successfully updated
                 data: []
         400:
           description: Bad Request
@@ -245,26 +232,26 @@ paths:
                 error: true
                 name: NotFound
                 status: 404
-                message: product not found.
+                message: style not found.
                 data: []
         500:
           description: Unkwnwn Error.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ServerError'
+                $ref: '#/components/schemas/ServerError' 
 
     delete:
       security:
         - ApiKeyAuth: []
-      summary: Delete product.
+      summary: Delete Style.
       tags:
-        - products
+        - styles
       parameters:
         - $ref: '#/components/parameters/parametersId'
       responses:
         200:
-          description: Deleted product.
+          description: Deleted style.
           content:
             application/json:
               schema:
@@ -273,7 +260,7 @@ paths:
                 error: false
                 name: OK
                 status: 200
-                message: The product was removed successfully.
+                message: The style was removed successfully.
                 data: []
         400:
           description: Bad Request
@@ -312,11 +299,11 @@ paths:
                 error: true
                 name: NotFound
                 status: 404
-                message: product not found.
+                message: style not found.
                 data: []
         500:
           description: Unkwnwn Error.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ServerError'  
+                $ref: '#/components/schemas/ServerError'

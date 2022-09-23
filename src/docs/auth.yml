@@ -1,55 +1,6 @@
 tags:
   - name: auth
-    description: Everything about your auth
-
-components:
-  schemas:
-    Auth-Login:
-      type: object
-      properties:
-        email:
-          type: string
-          description: the email of a user.
-        password:
-          type: string
-          decription: the password of a user.
-      reqired:
-        - email
-        - password
-      example:
-        email: testone@google.com
-        password: 123456abcde
-    Auth-Register:
-      type: object
-      properties:
-        firstName:
-          type: string
-          description: the firstName of a user.
-        lastName:
-          type: string
-          description: the lastName of a user.
-        email:
-          type: string
-          description: the email of a user.
-        password:
-          type: string
-          description: the password of a user.
-        photo:
-          type: string
-          description: the photo of a user.
-      required:
-        - firstName
-        - lastName
-        - email
-        - password
-      example:
-        firstName: Test
-        lastName: One
-        email: testone@google.com
-        password: 123456abcde
-        photo: img/image.jpg
-    
-    
+    description: Everything about your auth   
 
 paths:
   /auth/register:
@@ -187,10 +138,14 @@ paths:
           content:
             application/json:
               schema:
+                  oneOf:
                   - $ref: '#/components/schemas/BadRequest'
+                  - $ref: '#/components/schemas/NotFields'
               examples:
                 InvalidToken:
                   $ref: '#/components/examples/InvalidToken'
+                NotFields:
+                  $ref: '#/components/examples/NotFields'
         401:
           description: Unauthorized
           content:

@@ -169,3 +169,11 @@ components:
             msg: string
             param: param 2
             location: body
+
+    ExistingValue:
+      value:
+        error: true
+        name: BadRequest
+        status: 400
+        message: \"clave\":\"valor\", ya existe en DB
+        data: []
