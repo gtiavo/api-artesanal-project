@@ -109,6 +109,14 @@ const unBanned = async(userId) => {
 
 };
 
+const changeRole = async( userId, dataRole ) => {
+
+  const user = await oneUser(userId);
+  const {roleId} = dataRole;
+  await ModelsDB.updatePost(user, { roleId });
+  return;
+};
+
   module.exports = {
     newUser,
     userLoged,
@@ -118,5 +126,6 @@ const unBanned = async(userId) => {
     getUsers,
     oneUser,
     banned,
-    unBanned
+    unBanned,
+    changeRole
   }

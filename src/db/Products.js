@@ -1,7 +1,7 @@
 const ModelsDB = require('./models/Mongoose');
 const Product = require('../_mongooseDB/models/Product');
 const { isValidObjectId } = require('mongoose');
-const { NotFoundResponse } = require('../_HTTP-response/errors');
+const { NotFoundResponse, BadRequestResponse } = require('../_HTTP-response/errors');
 
 
 
@@ -19,7 +19,18 @@ const productCreate = async( data ) => {
 
 const getProducts = async(data) => {
 
-    const products = await ModelsDB.getPagination(Product, data)
+    const { currentPage, nextPage, prevPage, rows, totalPages } = await ModelsDB.getPagination(Product, data);
+
+    if(Number(currentPage) > totalPages - 1) throw new BadRequestResponse(`Solo hay un total de ${totalPages} paginas.`);
+
+    const products = {
+        prevPage: prevPage < 0 ? null : 'http://localhost:3000/api/products?page=' + prevPage,            
+        currentPage: `http://localhost:3000/api/products?page=${currentPage}`,
+        nextPage:  nextPage >= totalPages  ? null : 'http://localhost:3000/api/products?page=' + nextPage ,
+        totalPages,
+        rows,
+    }
+
     return products;
 
 };

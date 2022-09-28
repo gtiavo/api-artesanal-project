@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { register, login, updateUser, deactivateUser, getAllUser, getOneUser, activateUser, bannedUser, unBannedUser } = require('../controllers');
+const { register, login, updateUser, deactivateUser, getAllUser, getOneUser, activateUser, bannedUser, unBannedUser, userRole } = require('../controllers');
 const { fieldsRegister, fieldsLogin,fieldsUserUpdate, validarJWT, isAdmin, isClient } = require('../middlewares');
 
 router.post('/register',fieldsRegister, register );
@@ -15,6 +15,7 @@ router.get('/admin', getAllUser );
 router.get('/admin/:id', getOneUser );
 router.delete('/admin/:id', bannedUser );
 router.put('/admin/:id', unBannedUser );
+router.put('/admin/role/:id', userRole );
 
 
 module.exports = router;

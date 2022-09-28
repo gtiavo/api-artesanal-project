@@ -1,4 +1,4 @@
-const { newUser, userLoged, getUsers, oneUser, userEdit, removeUser, restoreUser, banned, unBanned } = require("../db");
+const { newUser, userLoged, getUsers, oneUser, userEdit, removeUser, restoreUser, banned, unBanned, changeRole } = require("../db");
 const asyncHandler = require("../helpers/async-handler");
 const {  CreatedResponse, OkResponse } = require("../_HTTP-response/successful");
 
@@ -69,6 +69,13 @@ const unBannedUser = asyncHandler(async( req, res, next ) => {
 
 });
 
+const userRole = asyncHandler(async( req, res, next ) => {
+
+    await changeRole(req.params, req.body);
+    new OkResponse(res, [], 'UserRole updated');
+
+});
+
 
 
 module.exports = {
@@ -80,5 +87,6 @@ module.exports = {
     getAllUser,
     getOneUser,
     bannedUser,
-    unBannedUser
+    unBannedUser,
+    userRole
 }

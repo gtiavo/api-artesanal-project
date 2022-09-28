@@ -12,7 +12,7 @@ const newProduct = asyncHandler(async(req, res, next) => {
 
 const getAllProducts = asyncHandler(async(req,res,next) => {
     
-    const products = await getProducts(req.query);
+    const products = await getProducts(req.query.page);
     new OkResponse(res, {products});
 
 });
