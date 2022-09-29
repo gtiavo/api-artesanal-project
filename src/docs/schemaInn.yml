@@ -19,6 +19,12 @@ components:
       schema:
         type: string
       description: the id required
+    queryPagination:
+      in: query
+      name: page
+      schema: 
+        type: integer
+      description: The number of page (0, ...)
 
 security:
  - ApiKeyAuth: []

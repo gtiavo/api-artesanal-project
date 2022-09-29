@@ -92,7 +92,9 @@ paths:
     get:
       summary: Get All products
       tags:
-        - products 
+        - products
+      parameters:
+        - $ref: '#/components/parameters/queryPagination' 
       responses:
         200:
           description: A JSON array of products.
@@ -107,20 +109,25 @@ paths:
                 message: 0k
                 data: 
                   products:
-                    - name: Cerveza Artezanal
-                      style: IPA
-                      marker: Productora nacional
-                      description: Cerveza artezanal nacional con exquisitos aromas al suelo de mi pueblo
-                      photo: img/imagen.jpg
-                      source: Argentina 
-                      id: 631921fe88f21961f25570b7
-                    - name: Cerveza Artezanal 2
-                      style: IPA
-                      marker: Productora nacional
-                      description: Cerveza artezanal nacional con exquisitos aromas al suelo de mi pueblo
-                      photo: img/imagen.jpg
-                      source: Argentina 
-                      id: 631921fe88f21961f25570b8     
+                    prevPage: null
+                    currentPage: http://localhost:3000/api/comments?page=0
+                    nextPage: http://localhost:3000/api/comments?page=1
+                    totalPages: 4
+                    row:
+                      - name: Cerveza Artezanal
+                        style: IPA
+                        marker: Productora nacional
+                        description: Cerveza artezanal nacional con exquisitos aromas al suelo de mi pueblo
+                        photo: img/imagen.jpg
+                        source: Argentina 
+                        id: 631921fe88f21961f25570b7
+                      - name: Cerveza Artezanal 2
+                        style: IPA
+                        marker: Productora nacional
+                        description: Cerveza artezanal nacional con exquisitos aromas al suelo de mi pueblo
+                        photo: img/imagen.jpg
+                        source: Argentina 
+                        id: 631921fe88f21961f25570b8     
         500:
           description: Unkwnwn Error.
           content:

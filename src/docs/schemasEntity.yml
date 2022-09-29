@@ -98,3 +98,15 @@ components:
         email: testone@google.com
         password: 123456abcde
         photo: img/image.jpg
+
+    Comments:
+      type: object
+      properties:
+        message: 
+          type: string
+          description: the message of the comment.
+      reqired:
+        - message
+      example:
+        message: Hola a todos!! como estan?
+
