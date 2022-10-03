@@ -1,6 +1,6 @@
 const { Schema, model } = require('mongoose');
 
-const UserSchema = Schema({
+const UserSchema = new Schema({
     firstName:{
         type: String,
         required: true
@@ -46,5 +46,6 @@ UserSchema.method('toJSON', function() {
     object.id = _id;
     return object;
   })
+  
 
 module.exports = model('User', UserSchema );

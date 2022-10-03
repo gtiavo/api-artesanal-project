@@ -3,6 +3,7 @@ const products = require('./products');
 const seed = require('./seed');
 const styles = require('./styles');
 const comments = require('./comments');
+const roles = require('./roles');
 
 
 
@@ -11,5 +12,6 @@ module.exports = {
     ...products,
     ...seed,
     ...styles,
-    ...comments
+    ...comments,
+    ...roles
 }

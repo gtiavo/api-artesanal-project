@@ -3,6 +3,7 @@ const Products = require('./Products');
 const Seed = require('./Seed');
 const Styles = require('./Styles');
 const Comments = require('./Comments');
+const Role = require('./Role');
 
 
 module.exports = {
@@ -10,5 +11,6 @@ module.exports = {
     ...Products,
     ...Seed,
     ...Styles,
-    ...Comments
+    ...Comments,
+    ...Role
 }
