@@ -1,5 +1,6 @@
 const { check } = require('express-validator');
 const fieldsValidation = require('../fields-validations');
+const { whiteListRole } = require('../../helpers');
 
 const fieldsRegister = [
 
@@ -40,8 +41,18 @@ const fieldsLogin = [
     
 ];
 
+const fieldsRoleChange = [
+
+    check('roleId').custom(whiteListRole).optional(),
+    fieldsValidation
+
+];
+
+
+
 module.exports = {
     fieldsRegister,
     fieldsUserUpdate,
-    fieldsLogin
+    fieldsLogin,
+    fieldsRoleChange
 }

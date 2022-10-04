@@ -1,6 +1,7 @@
 const { getStyles } = require('../db/Styles');
+const { getRoles } = require('../db/Role');
 
-const whitheListStyles = async(value) => {
+const whiteListStyles = async(value) => {
 
         const values = [];
         const styles = await getStyles();
@@ -10,8 +11,21 @@ const whitheListStyles = async(value) => {
         return true;
 };
 
+const whiteListRole = async(value) => {
+
+    const values = [];
+    const rolesTotal = await getRoles();
+    const roles = rolesTotal.filter( role => role.deletedAt !== true);
+    roles.forEach(role => values.push(role.name));
+
+    if( !values.includes(value) ) throw new Error(`-${values}- son los roles admitidos`);
+    return true;
+
+};
+
 
 
 module.exports = {
-    whitheListStyles,
+    whiteListStyles,
+    whiteListRole
 }
