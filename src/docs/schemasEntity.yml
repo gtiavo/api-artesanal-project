@@ -110,3 +110,21 @@ components:
       example:
         message: Hola a todos!! como estan?
 
+    Roles:
+      type: object
+      properties:
+        name: 
+          type: string
+          description: the name of role.
+        description:
+          type: string
+          description: the description of role.
+        deletedAt:
+          type: boolean
+          description: the deleteAt of role.
+      reqired:
+        - name
+      example:
+        name: admin
+        description: role admin of the app.
+
