@@ -21,7 +21,7 @@ const getProducts = async(data) => {
 
     const { currentPage, nextPage, prevPage, rows, totalPages } = await ModelsDB.getPagination(Product, data);
 
-    if(Number(currentPage) > totalPages - 1) throw new BadRequestResponse(`Solo hay un total de ${totalPages} paginas.`);
+    if(Number(currentPage) > totalPages - 1) throw new BadRequestResponse(`Total pages:  ${totalPages}.`);
 
     const products = {
         prevPage: prevPage < 0 ? null : 'http://localhost:3000/api/products?page=' + prevPage,            

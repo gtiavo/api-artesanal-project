@@ -6,7 +6,7 @@ const middlewareError = ( error, req, res, next ) => {
     if( typeof error.toJson === 'function') {
         errorObject = error.toJson();
     } else if(error.code === 11000){
-        errorObject = new BadRequestResponse(`${ JSON.stringify( error.keyValue ) }, ya existe en DB`).toJson();
+        errorObject = new BadRequestResponse(`${ JSON.stringify( error.keyValue ) }, already exists in DB`).toJson();
     } else {
         errorObject = {
             error: true,

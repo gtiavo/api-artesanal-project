@@ -7,7 +7,7 @@ const whiteListStyles = async(value) => {
         const styles = await getStyles();
         styles.forEach(style => values.push(style.name));
 
-        if( !values.includes(value) ) throw new Error(`-${values}- son los estilos existentes`);
+        if( !values.includes(value) ) throw new Error(`-${values}- supported styles`);
         return true;
 };
 
@@ -18,7 +18,7 @@ const whiteListRole = async(value) => {
     const roles = rolesTotal.filter( role => role.deletedAt !== true);
     roles.forEach(role => values.push(role.name));
 
-    if( !values.includes(value) ) throw new Error(`-${values}- son los roles admitidos`);
+    if( !values.includes(value) ) throw new Error(`-${values}- supported roles`);
     return true;
 
 };

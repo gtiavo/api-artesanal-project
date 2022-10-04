@@ -3,14 +3,14 @@ const fieldsValidation = require('../fields-validations');
 
 const fieldsCommnets = [
 
-    check('message', 'El mensaje es obligatorio').trim().notEmpty(),
+    check('message', 'message is required').trim().notEmpty(),
     fieldsValidation
 
 ];
 
 const updateFieldsCommnets = [
 
-    check('message', 'El mensaje es obligatorio').trim().notEmpty().optional(),
+    check('message', 'message is required').trim().notEmpty().optional(),
     fieldsValidation
 
 ];

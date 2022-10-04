@@ -4,14 +4,14 @@ const { whiteListRole } = require('../../helpers');
 
 const fieldsRegister = [
 
-    check("firstName", "El nombre es obligatorio").trim().notEmpty(),
-    check("firstName", "El nombre debe de tener al menos 3 caracteres").isLength({min:3}),
-    check("lastName", "El apellido es obligatorio").trim().notEmpty(),
-    check("lastName", "El apellido debe de tener al menos 3 caracteres").isLength({min:3}),
-    check('email', 'El email es obligatorio').not().isEmpty(),
-    check('email', 'El email no es valido').isEmail(),
-    check("password", "El password es obligatorio").trim().notEmpty(),
-    check("password", "El password debe de tener al menos 6 caracteres").isLength({min:6}),
+    check("firstName", "firstName is required").trim().notEmpty(),
+    check("firstName", "the firstName must have at least 3 characters").isLength({min:3}),
+    check("lastName", "lastName is required").trim().notEmpty(),
+    check("lastName", "the lastName must have at least 3 characters").isLength({min:3}),
+    check('email', 'email is required').not().isEmpty(),
+    check('email', 'The email is not valid').isEmail(),
+    check("password", "password is required").trim().notEmpty(),
+    check("password", "the password must have at least 6 characters").isLength({min:6}),
     
     fieldsValidation
     
@@ -19,14 +19,14 @@ const fieldsRegister = [
 
 const fieldsUserUpdate = [
 
-    check("firstName", "El nombre es obligatorio").trim().notEmpty().optional(),
-    check("firstName", "El nombre debe de tener al menos 3 caracteres").isLength({min:3}).optional(),
-    check("lastName", "El apellido es obligatorio").trim().notEmpty().optional(),
-    check("lastName", "El apellido debe de tener al menos 3 caracteres").isLength({min:3}).optional(),
-    check('email', 'El email es obligatorio').not().isEmpty().optional(),
-    check('email', 'El email no es valido').isEmail().optional(),
-    check("password", "El password es obligatorio").trim().notEmpty().optional(),
-    check("password", "El password debe de tener al menos 6 caracteres").isLength({min:6}).optional(),
+    check("firstName", "firstName is required").trim().notEmpty().optional(),
+    check("firstName", "the firstName must have at least 3 characters").isLength({min:3}).optional(),
+    check("lastName", "lastName is required").trim().notEmpty().optional(),
+    check("lastName", "the lastName must have at least 3 characters").isLength({min:3}).optional(),
+    check('email', 'email is required').not().isEmpty().optional(),
+    check('email', 'The email is not valid').isEmail().optional(),
+    check("password", "password is required").trim().notEmpty().optional(),
+    check("password", "the password must have at least 6 characters").isLength({min:6}).optional(),
     
     fieldsValidation
     
@@ -34,9 +34,9 @@ const fieldsUserUpdate = [
 
 const fieldsLogin = [
 
-    check('email', 'El email es obligatorio').not().isEmpty(),
-    check('email', 'El email no es valido').isEmail(),
-    check("password", "El password es obligatorio").trim().notEmpty(),
+    check('email', 'email is required').not().isEmpty(),
+    check('email', 'The email is not valid').isEmail(),
+    check("password", "password is required").trim().notEmpty(),
     fieldsValidation
     
 ];

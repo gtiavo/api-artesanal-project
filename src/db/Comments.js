@@ -26,7 +26,7 @@ const commentsList = async(data) => {
 
     const { rows, currentPage, nextPage, prevPage, totalPages } = await ModelsDB.getPagination(Comment,data);
 
-    if(Number(currentPage) > totalPages - 1) throw new BadRequestResponse(`Solo hay un total de ${totalPages} paginas.`) ;
+    if(Number(currentPage) > totalPages - 1) throw new BadRequestResponse(`Total pages:  ${totalPages}.`) ;
 
      const comments = { 
         prevPage: prevPage < 0 ? null : 'http://localhost:3000/api/comments?page=' + prevPage,            
@@ -57,7 +57,7 @@ const commentEdit = async( data, dataId, userId ) => {
     const comment = await oneComment(dataId);
     const { message } = data;
 
-    if(comment.user.valueOf() !== userId) throw new UnauthorizedResponse('No puedes editar este comentario');
+    if(comment.user.valueOf() !== userId) throw new UnauthorizedResponse("You can't edit this comment");
     
     await ModelsDB.updatePost(comment, {message});
 
@@ -69,7 +69,7 @@ const removeComment = async(dataId, userId) => {
 
     const comment = await oneComment(dataId);
 
-    if(comment.user.valueOf() !== userId) throw new UnauthorizedResponse('No puedes eliminar este comentario');
+    if(comment.user.valueOf() !== userId) throw new UnauthorizedResponse("You can't delete this comment");
 
     await ModelsDB.updatePost(comment, {deletedAt: true} );
 
@@ -85,7 +85,7 @@ const totalsComents = async(data) => {
         id: _id, user, message, deletedAt, createdAt, updatedAt
     }));
 
-    if(Number(currentPage) > totalPages - 1) throw new BadRequestResponse(`Solo hay un total de ${totalPages} paginas.`) ;
+    if(Number(currentPage) > totalPages - 1) throw new BadRequestResponse(`Total pages:  ${totalPages}.`) ;
 
      const comments = { 
         prevPage: prevPage < 0 ? null : 'http://localhost:3000/api/comments?page=' + prevPage,            
@@ -124,7 +124,6 @@ const commentCancel = async(dataId) => {
 const outComment = async( dataId ) => {
 
     const{ comment } = await oneTotalsComments(dataId);
-    // await ModelsDB.delete(comment);
     await comment.delete();
 
     return;
