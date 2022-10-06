@@ -4,6 +4,7 @@ const seed = require('./seed');
 const styles = require('./styles');
 const comments = require('./comments');
 const roles = require('./roles');
+const uploads = require('./uploads');
 
 
 
@@ -13,5 +14,6 @@ module.exports = {
     ...seed,
     ...styles,
     ...comments,
-    ...roles
+    ...roles,
+    ...uploads
 }

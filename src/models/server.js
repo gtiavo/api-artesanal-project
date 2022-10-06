@@ -4,6 +4,7 @@ const morgan    = require('morgan');
 const dbMongose = require('../_mongooseDB/config/configDb');
 const options   = require('../docs/swaggerOptions');
 const swaggerUi = require('swagger-ui-express');
+const fileUpload = require('express-fileupload');
 const swaggerJsdoc        =  require ( 'swagger-jsdoc' ) ;
 const { middlewareError } = require('../middlewares');
 
@@ -36,6 +37,10 @@ class Server {
     this.app.use(express.static("src/public"));
 
     this.app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerJsdoc(options)));
+
+    this.app.use(fileUpload({ useTempFiles : true, tempFileDir : '/tmp/', 
+    // createParentPath: true
+   }));
 
   }
 
