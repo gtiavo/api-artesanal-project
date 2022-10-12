@@ -5,8 +5,8 @@ const { OkResponse } = require("../_HTTP-response/successful");
 
 const upadateImage = asyncHandler(async(req,res,next) => {
 
-  const model =  await upadateImageClouddinary(req.params, req.files);
-    new OkResponse(res,{model});
+    await upadateImageClouddinary(req.params, req.files);
+    new OkResponse(res,[], 'The photo was successfully upload');
 
 });
 

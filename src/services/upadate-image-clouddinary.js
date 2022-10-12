@@ -1,5 +1,5 @@
 const { oneProduct, oneUser, oneStyle } = require('../db');
-const { BadRequestResponse, NotFoundResponse } = require('../_HTTP-response/errors');
+const {  NotFoundResponse } = require('../_HTTP-response/errors');
 const cloudinary = require('cloudinary').v2;
 cloudinary.config(process.env.CLOUDINARY_URL);
 
@@ -36,7 +36,7 @@ const upadateImageClouddinary = async( dataParams, courtFile ) => {
     model.photo = secure_url;
     await model.save();
 
-    return model;
+    return;
 };
 
 module.exports = { upadateImageClouddinary };

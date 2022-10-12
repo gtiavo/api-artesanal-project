@@ -177,3 +177,11 @@ components:
         status: 400
         message: \"clave\":\"valor\", ya existe en DB
         data: []
+
+    InvalidExtension:
+      value:
+        error: true
+        name: BadRequest
+        status: 400
+        message: Invalid extension, valid extensions - png,jpg,jpeg,gif
+        data: []
