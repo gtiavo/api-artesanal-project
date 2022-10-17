@@ -1,6 +1,6 @@
 tags:
   - name: uploads
-    description: Everthing about youy photos
+    description: Upload images, exclusive for administrators
 
 paths:
   /uploads/{collection}/{id}:

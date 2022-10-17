@@ -1,6 +1,8 @@
 tags:
   - name: comments 
     description: Everthing about your comments.
+  - name: comments-admin
+    description: exclusive for administrators 
 
 
 paths:
@@ -370,7 +372,7 @@ paths:
         - ApiKeyAuth: []
       summary: Get All Comments, for admin.
       tags:
-        - comments 
+        - comments-admin 
       parameters:
         - $ref: '#/components/parameters/queryPagination'
       responses:
@@ -445,7 +447,7 @@ paths:
         - ApiKeyAuth: []
       summary: Get One Comment, for admin.
       tags:
-        - comments 
+        - comments-admin 
       parameters:
         - $ref: '#/components/parameters/parametersIdAuth'
       responses:
@@ -519,7 +521,7 @@ paths:
         - ApiKeyAuth: []
       summary: Cancel Comment, for admin.
       tags:
-        - comments 
+        - comments-admin 
       parameters:
         - $ref: '#/components/parameters/parametersIdAuth'
       responses:
@@ -586,7 +588,7 @@ paths:
         - ApiKeyAuth: []
       summary: Remove Comment, for admin.
       tags:
-        - comments 
+        - comments-admin 
       parameters:
         - $ref: '#/components/parameters/parametersIdAuth'
       responses:

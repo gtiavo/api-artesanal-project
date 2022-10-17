@@ -1,6 +1,6 @@
 tags:
   - name: styles
-    description: Everthing about your styles.
+    description: Everthing about your styles, exclusive for administrators.
   
 paths:
   /styles:

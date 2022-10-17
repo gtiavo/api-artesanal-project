@@ -2,20 +2,20 @@ const User = require('../_mongooseDB/models/User');
 const ModelsDB = require('./models/Mongoose');
 const bcrypt     = require('bcryptjs');
 const { isValidObjectId } = require('mongoose');
-const {jWTGenerator} = require('../helpers');
+const {jWTGenerator, paginationPath} = require('../helpers');
 const { UnauthorizedResponse, NotFoundResponse } = require('../_HTTP-response/errors');
 
 
 const newUser = async( data ) => {
 
-    const { firstName, lastName, email, password, photo  } = data;
+    const { firstName, lastName, email, password  } = data;
     
     const passwordHash = await bcrypt.hash(password, 10);
   
-    const user = await ModelsDB.NewPost(User, { firstName, lastName, email, password: passwordHash, photo } );
+    const user = await ModelsDB.NewPost(User, { firstName, lastName, email, password: passwordHash } );
     await user.save();
-  
-    return user;
+
+    return {id: user._id, firstName: user.firstName, lastName: user.lastName, email:user.email, photo: user.photo};
   
   };
 
@@ -32,12 +32,17 @@ const userLoged = async( data ) => {
 
   if(user.isBanned) throw new UnauthorizedResponse('Banned account');
 
+  if( !user.isActive ) {
+    await ModelsDB.updatePost(user, { isActive: true });
+    user.isActive = true;
+  }
+
   const token = await jWTGenerator(user);
 
-  const {_id, firstName, lastName, isActive  } = user;
+  const {_id, firstName, lastName, isActive, photo  } = user;
 
   
-  return { user:{id:_id, firstName, lastName, email: user.email, isActive}, token };
+  return { user:{id:_id, firstName, lastName, email: user.email, photo, isActive}, token };
 };
 
 
@@ -65,17 +70,13 @@ const removeUser = async( userId ) => {
 
 };
 
-const restoreUser = async( userId ) => {
 
-  const user = await oneUser(userId);
-  await ModelsDB.updatePost(user, { isActive: true });
-  return;
+const getUsers = async(data) => {
 
-};
+  const { currentPage, nextPage, prevPage, rows, totalPages } = await ModelsDB.getTotalsPaginations(User, data);
+  const pathModel = 'auth/admin';
 
-const getUsers = async() => {
-
-  const users = await ModelsDB.getAll(User);
+  const users = paginationPath(currentPage,totalPages,prevPage,nextPage,rows, pathModel);
   return users;
 
 };
@@ -122,7 +123,6 @@ const changeRole = async( userId, dataRole ) => {
     userLoged,
     userEdit,
     removeUser,
-    restoreUser,
     getUsers,
     oneUser,
     banned,

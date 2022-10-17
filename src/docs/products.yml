@@ -1,6 +1,6 @@
 tags:
   - name: products
-    description: Everthing about your products
+    description: Everthing about your products, exclusive for administrators
 
 paths:
   /products: 

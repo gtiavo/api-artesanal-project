@@ -1,6 +1,6 @@
 tags:
   - name: roles
-    description: Everthing about your roles, for admin.
+    description: Everthing about your roles, exclusive for administrators.
 
 paths:
   /roles:

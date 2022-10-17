@@ -1,7 +1,8 @@
 const ModelsDB = require('./models/Mongoose');
 const Product = require('../_mongooseDB/models/Product');
 const { isValidObjectId } = require('mongoose');
-const { NotFoundResponse, BadRequestResponse } = require('../_HTTP-response/errors');
+const { NotFoundResponse } = require('../_HTTP-response/errors');
+const { paginationPath } = require('../helpers');
 
 
 
@@ -20,16 +21,9 @@ const productCreate = async( data ) => {
 const getProducts = async(data) => {
 
     const { currentPage, nextPage, prevPage, rows, totalPages } = await ModelsDB.getPagination(Product, data);
+    const pathModel = 'products';
 
-    if(Number(currentPage) > totalPages - 1) throw new BadRequestResponse(`Total pages:  ${totalPages}.`);
-
-    const products = {
-        prevPage: prevPage < 0 ? null : 'http://localhost:3000/api/products?page=' + prevPage,            
-        currentPage: `http://localhost:3000/api/products?page=${currentPage}`,
-        nextPage:  nextPage >= totalPages  ? null : 'http://localhost:3000/api/products?page=' + nextPage ,
-        totalPages,
-        rows,
-    }
+    const products = paginationPath(currentPage,totalPages,prevPage,nextPage,rows, pathModel);
 
     return products;
 

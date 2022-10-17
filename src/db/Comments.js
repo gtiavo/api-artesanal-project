@@ -2,6 +2,8 @@ const ModelsDB = require('./models/Mongoose');
 const Comment = require('../_mongooseDB/models/Comment');
 const { isValidObjectId } = require('mongoose');
 const { NotFoundResponse, UnauthorizedResponse, BadRequestResponse } = require('../_HTTP-response/errors');
+const { paginationPath } = require('../helpers');
+const pathModel = 'comments';
 
 
 const createComment = async( data, userId ) => {
@@ -26,15 +28,7 @@ const commentsList = async(data) => {
 
     const { rows, currentPage, nextPage, prevPage, totalPages } = await ModelsDB.getPagination(Comment,data);
 
-    if(Number(currentPage) > totalPages - 1) throw new BadRequestResponse(`Total pages:  ${totalPages}.`) ;
-
-     const comments = { 
-        prevPage: prevPage < 0 ? null : 'http://localhost:3000/api/comments?page=' + prevPage,            
-        currentPage: `http://localhost:3000/api/comments?page=${currentPage}`,
-        nextPage:  nextPage >= totalPages  ? null : 'http://localhost:3000/api/comments?page=' + nextPage ,
-        totalPages,
-        rows,
-    };         
+    const comments = paginationPath(currentPage,totalPages,prevPage,nextPage,rows, pathModel);
 
     return comments;
 
@@ -85,15 +79,7 @@ const totalsComents = async(data) => {
         id: _id, user, message, deletedAt, createdAt, updatedAt
     }));
 
-    if(Number(currentPage) > totalPages - 1) throw new BadRequestResponse(`Total pages:  ${totalPages}.`) ;
-
-     const comments = { 
-        prevPage: prevPage < 0 ? null : 'http://localhost:3000/api/comments?page=' + prevPage,            
-        currentPage: `http://localhost:3000/api/comments?page=${currentPage}`,
-        nextPage:  nextPage >= totalPages  ? null : 'http://localhost:3000/api/comments?page=' + nextPage ,
-        totalPages,
-        rows: rowsTotals,
-    };         
+    const comments = paginationPath(currentPage,totalPages,prevPage,nextPage,rowsTotals, pathModel);
 
     return comments;
 

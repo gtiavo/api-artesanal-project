@@ -19,7 +19,8 @@ const UserSchema = new Schema({
         required: true
     },
     photo:{
-        type: String
+        type: String,
+        default: 'img/image.jpg'
     } ,
     roleId:{
        type: String,

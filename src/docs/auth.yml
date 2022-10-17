@@ -1,6 +1,8 @@
 tags:
   - name: auth
-    description: Everything about your auth   
+    description: Everything about your auth
+  - name: auth-admin
+    description: exclusive for administrators   
 
 paths:
   /auth/register:
@@ -26,11 +28,13 @@ paths:
                 name: Created
                 status: 201
                 message: User created
-                data: 
-                  firstName: Test
-                  lastName: One
-                  email: testone@google.com
-                  photo: img/image.jpg
+                data:
+                  user: 
+                    id: 6347452631d816ee3928d787
+                    firstName: Test
+                    lastName: One
+                    email: testone@google.com
+                    photo: img/image.jpg
         400:
           description: Invalid operation to create a new user.
           content:
@@ -72,10 +76,12 @@ paths:
                 message: 0k
                 data:
                   user:
+                    id: 63473fb8045272ba646514b5
                     firstName: Test
                     lastName: One
                     email: testone@google.com
                     photo: img/image.jpg
+                    isActive: true
                   token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2MzFiYzFjYmZhYmRjYzdiZmUxZWJmMGMiLCJpYXQiOjE2NjI4NDUxOTksImV4cCI6MTY2Mjg1OTU5OX0.RhcowYnuxq2yGw9N9-LSrS7sK6gFG0_pxYgavb0DRu0
         400:
           description: Invalid operation to loged.
@@ -227,60 +233,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/ServerError'
 
-    put:
-      security: 
-        - ApiKeyAuth: []
-      summary: Activate User.
-      tags:
-        - auth
-      parameters:
-        - $ref: '#/components/parameters/parametersIdAuth'
-      responses:
-        200:
-          description: Activate User.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/OkResponse'
-              example:
-                error: false
-                name: OK
-                status: 200
-                message: Activate User.
-                data: []
-        400:
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                  - $ref: '#/components/schemas/BadRequest'
-              examples:
-                InvalidToken:
-                  $ref: '#/components/examples/InvalidToken'
-        401:
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Unauthorized'
-              examples:
-                authenticationToken:
-                  $ref: '#/components/examples/authenticationToken'
-        403:
-          description: Forbidden
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Forbidden'
-              examples:
-                accessDenied:
-                  $ref: '#/components/examples/accessDenied' 
-        500:
-          description: Unkwnwn Error.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ServerError'
       
 
   /auth/admin:
@@ -289,7 +241,9 @@ paths:
         - ApiKeyAuth: []
       summary: Get All Users.
       tags:
-        - auth
+        - auth-admin
+      parameters:
+        - $ref: '#/components/parameters/queryPagination'
       responses:
         200:
           description: A JSON array of users.
@@ -303,20 +257,26 @@ paths:
                 status: 200
                 message: 0k
                 data:
-                  - id: 631921fe88f21961f25570b7
-                    firstName: Test
-                    lastName: One
-                    email: testone@google.com
-                    photo: img/image.jpg
-                    isAtive: true
-                    isBanned: false
-                  - id: 631921fe88f21961f25570b9
-                    firstName: Test
-                    lastName: Two
-                    email: testtwo@google.com
-                    photo: img/image.jpg
-                    isAtive: true
-                    isBanned: false
+                  users:
+                    prevPage: null
+                    currentPage: http://localhost:3000/api/auth/admin?page=0
+                    nextPage: http://localhost:3000/auth/admin?page=1
+                    totalPages: 4
+                    row:
+                      - id: 631921fe88f21961f25570b7
+                        firstName: Test
+                        lastName: One
+                        email: testone@google.com
+                        photo: img/image.jpg
+                        isAtive: true
+                        isBanned: false
+                      - id: 631921fe88f21961f25570b9
+                        firstName: Test
+                        lastName: Two
+                        email: testtwo@google.com
+                        photo: img/image.jpg
+                        isAtive: true
+                        isBanned: false
         400:
           description: Bad Request
           content:
@@ -358,7 +318,7 @@ paths:
         - ApiKeyAuth: []
       summary: Get One User.
       tags:
-        - auth
+        - auth-admin
       parameters:
         - $ref: '#/components/parameters/parametersIdAuth'
       responses:
@@ -421,7 +381,7 @@ paths:
         - ApiKeyAuth: []
       summary: Banned User.
       tags:
-        - auth
+        - auth-admin
       parameters:
         - $ref: '#/components/parameters/parametersIdAuth'
       responses:
@@ -464,6 +424,18 @@ paths:
               examples:
                 accessDenied:
                   $ref: '#/components/examples/accessDenied' 
+        404:
+          description: Not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFound'
+              example:
+                error: true
+                name: NotFound
+                status: 404
+                message: user not found.
+                data: []
         500:
           description: Unkwnwn Error.
           content:
@@ -476,7 +448,7 @@ paths:
         - ApiKeyAuth: []
       summary: Unbanned User.
       tags:
-        - auth
+        - auth-admin
       parameters:
         - $ref: '#/components/parameters/parametersIdAuth'
       responses:
@@ -519,10 +491,106 @@ paths:
               examples:
                 accessDenied:
                   $ref: '#/components/examples/accessDenied' 
+        404:
+          description: Not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFound'
+              example:
+                error: true
+                name: NotFound
+                status: 404
+                message: user not found.
+                data: []
         500:
           description: Unkwnwn Error.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ServerError'
+
+  /auth/admin/role/{id}:
+     put:
+      security: 
+        - ApiKeyAuth: []
+      summary: Change RoleId.
+      tags:
+        - auth-admin
+      parameters:
+        - $ref: '#/components/parameters/parametersIdAuth'
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                roleId:
+                  type: string
+              reqired:
+                - roleId
+              example:
+                roleId: admin
+      responses:
+        200:
+          description: New User roleId.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OkResponse'
+              example:
+                error: false
+                name: OK
+                status: 200
+                message: modified role.
+                data: []
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                  - $ref: '#/components/schemas/BadRequest'
+              examples:
+                InvalidToken:
+                  $ref: '#/components/examples/InvalidToken'
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Unauthorized'
+              examples:
+                authenticationToken:
+                  $ref: '#/components/examples/authenticationToken'
+        403:
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Forbidden'
+              examples:
+                accessDenied:
+                  $ref: '#/components/examples/accessDenied' 
+        404:
+          description: Not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFound'
+              example:
+                error: true
+                name: NotFound
+                status: 404
+                message: user not found.
+                data: []
+        500:
+          description: Unkwnwn Error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServerError'
+
+
+
     
